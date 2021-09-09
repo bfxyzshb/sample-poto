@@ -28,6 +28,14 @@ public class indexController {
     @RequestMapping("/order/save")
     @ResponseBody
     public void saveOrder() {
+        /**
+         * （1）通用的大Map，也可以保证接口兼容性，但需要在代码里解决Map解析和异常处理的问题。
+         * （2）固定参数，但如果未来的需求变更，可能需要接口变更，造成可能的接口不兼容。
+         * 我们通过对所有的入参做强类型显性化包装，可以确保
+         * 1.接口的兼容
+         * 2.参数的可拓展性。同时，通过对多个参数的显性封装。
+         * 3.我们能更明确的理解该方法的“目的性”，不需要再仅仅通过方法名去理解方法的目的。
+         */
         OrderCreateCommand orderCreateCommand = new OrderCreateCommand("测试", "北京", new BigDecimal(100));
         Protocol protocol = new DefProtocl();
         protocol.getExtensionName();
@@ -36,7 +44,7 @@ public class indexController {
         System.out.println(response);
     }
 
-    class DefProtocl implements Protocol{
+    class DefProtocl implements Protocol {
 
         @Override
         public Set<String> getParameters() {
