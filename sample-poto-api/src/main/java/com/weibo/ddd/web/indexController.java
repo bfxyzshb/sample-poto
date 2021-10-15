@@ -1,8 +1,11 @@
 package com.weibo.ddd.web;
 
+import com.google.common.eventbus.EventBus;
 import com.weibo.ddd.commands.OrderCreateCommand;
+import com.weibo.poto.bus.command.CommandBus;
 import com.weibo.poto.bus.command.DefaultCommandBus;
 import com.weibo.poto.bus.command.Response;
+import com.weibo.poto.bus.command.annotation.CommandHandler;
 import com.weibo.poto.spi.Protocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,7 @@ import java.util.Set;
 public class indexController {
 
     @Autowired
-    DefaultCommandBus commandBus;
+    CommandBus commandBus;
 
     @RequestMapping("/order/save")
     @ResponseBody

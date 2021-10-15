@@ -47,6 +47,8 @@ public class OrderRepositoryDiffImpl extends DbRepositorySupport<Order, OrderId>
     @Override
     protected void onInsert(Order aggregate) {
         OrderDO orderDO = converter.toData(aggregate);
+        //在这里可以自己设置发号器生成的id
+        //orderDO.setId(xxx);
         orderDAO.insert(orderDO);
         aggregate.setId(converter.fromData(orderDO).getId());
     }

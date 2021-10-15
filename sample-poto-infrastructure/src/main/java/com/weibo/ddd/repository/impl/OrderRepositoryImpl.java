@@ -47,7 +47,14 @@ public class OrderRepositoryImpl implements OrderRepository {
             OrderDO orderDO = converter.toData(aggregate);
             orderDAO.update(orderDO);
             for (LineItem lineItem : aggregate.getLineItems()) {
-                save(lineItem);
+                //save(lineItem);
+                LineItemDO lineItemDO = lineItemConverter.toData(lineItem);
+                if (lineItem.getId() != null && lineItem.getId().getId() > 0) {
+                    lineItemDAO.update(lineItemDO);
+                } else {
+                    lineItemDAO.insert(lineItemDO);
+                    lineItem.setId(lineItemConverter.fromData(lineItemDO).getId());
+                }
             }
         } else {
             // insert
