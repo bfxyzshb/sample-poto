@@ -46,6 +46,11 @@ public class OrderHandler {
         //扩展执行
         extensionExecutor.execute(OrderConfirmInterface.class, orderCreateCommand.getProtocol(), o -> o.confirm(""));
         orderRepository.save(order);
+        /**
+         * 1.当一个聚合根上的操作引发了其他聚合根的变更时，将这些变更作为领域事件发布出去，其他聚合根可以订阅这些事件并更新自己的状态
+         * 2.保证聚合间的数据一致性
+         * 3.将事件从一个子域发布到另一个子域，使得这两个子域可以解耦，不用相互知道彼此的存在。
+         */
         //发送事件eg:通知相关物流人员下单成功准备发货
         EventMessage eventMessage= CommonMessage.asEventMessage("");
         eventBus.dispatch(eventMessage);
