@@ -16,6 +16,11 @@
             <artifactId>sample-poto-domain</artifactId>
             <version>${parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.weibo.ddd</groupId>
+            <artifactId>sample-poto-infrastructure</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
     </dependencies>
 
 
